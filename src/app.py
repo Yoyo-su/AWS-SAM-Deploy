@@ -7,7 +7,7 @@ print("Loading function")
 # create a DynamoDB client
 region_name = 'eu-west-2'
 dynamodb = boto3.client('dynamodb', region_name=region_name)
-table_name = os.environ('TABLE_NAME')
+table_name = os.environ['TABLE_NAME']
 
 def respond(err, res=None):
     if err:
@@ -26,5 +26,5 @@ def respond(err, res=None):
 
 def lambda_handler(event, context):
     print("Received event: " + json.dumps(event, indent=2))
-    scan_result = dynamodb.scan(Table_Name=table_name)
+    scan_result = dynamodb.scan(TableName=table_name)
     return respond(None, res=scan_result)
