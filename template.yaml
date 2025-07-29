@@ -12,5 +12,11 @@ Resources:
       Description: A simple Lambda function that returns a greeting.
       MemorySize: 128
       Timeout: 3
+      Events:
+        HelloWorld:
+          Type: Api
+          Properties:
+            Path: /hello
+            Method: GET
       Policies:
         - AWSLambdaBasicExecutionRole
