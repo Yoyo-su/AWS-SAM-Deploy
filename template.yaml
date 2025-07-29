@@ -12,6 +12,10 @@ Resources:
       Description: A simple Lambda function that returns a greeting.
       MemorySize: 128
       Timeout: 3
+      Environment:
+        Variables:
+          TABLE_NAME: !Ref Table
+          REGION_NAME: !Ref AWS::Region
       Events:
         HelloWorld:
           Type: Api
@@ -19,4 +23,16 @@ Resources:
             Path: /hello
             Method: GET
       Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref Table
         - AWSLambdaBasicExecutionRole
+
+  Table:
+    Type: AWS::Serverless::SimpleTable
+    Properties:
+      PrimaryKey:
+        Name: greeting
+        Type: String
+      ProvisionedThroughput:
+        ReadCapacityUnits: 2
+        WriteCapacityUnits: 2
